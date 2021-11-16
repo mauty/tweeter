@@ -1,0 +1,26 @@
+nav {
+  height: 120px;
+  background-color: #4056A1;
+  z-index: 5;
+}
+
+.nav-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  height: 100%
+}
+
+.nav-container li {
+  color: white;
+  list-style-type: none;
+}
+
+.logo {
+  font-family: 'Bungee', cursive;
+  color: white;
+  font-size: 2em;
+}
