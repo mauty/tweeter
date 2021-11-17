@@ -32,3 +32,51 @@
 .red {
   color: red;
 }
+
+article {
+  border-style: solid;
+  border-width: 2px;
+  border-color: lightslategrey;
+  padding: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+article:hover {
+  box-shadow: 20px 20px teal;
+  ;
+}
+
+.tweet header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.tweet  img {
+  height: 48px;
+  width: 48px;
+  margin-right: 18px;
+}
+
+.tweet h2 {
+  flex-grow: 1;
+}
+
+.tweet footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.tweet .time {
+  flex-grow: 2;
+}
+
+footer i {
+  margin: 6px;
+}
+
+footer i:hover {
+  color: blue;
+}
