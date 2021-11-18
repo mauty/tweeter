@@ -1,6 +1,8 @@
+$primary-color: hsl(220, 38%, 50%);
+
 .new-tweet textarea {
   resize: none;
-  background-color: #ece7df;
+  background-color: hsl(37, 27%, 90%);
   border-left: none;
   border-right: none;
   border-top: none;
@@ -14,17 +16,17 @@
 }
 
 .new-tweet button {
-  background-color: #4f6fb0;
+  background-color: $primary-color;
   color: white;
   font-size: 1em;
   font-family: Bungee;
   border: 0;
   border-radius: 5px;
-  padding: 10px;
+  padding: 10px
 }
 
 .new-tweet button:hover {
-  background-color: rgba(79, 111, 176, 0.9);
+  background-color: rgba($primary-color, 0.9);
 }
 
 .flex-row {
@@ -48,7 +50,8 @@ article {
 }
 
 article:hover {
-  box-shadow: 10px 10px #408c7d;
+  box-shadow: 10px 10px hsl(168, 37%, 40%);
+  ;
 }
 
 .tweet header {
@@ -57,7 +60,7 @@ article:hover {
   align-items: center;
 }
 
-.tweet img {
+.tweet  img {
   height: 48px;
   width: 48px;
   margin-right: 18px;
@@ -82,7 +85,7 @@ footer i {
 }
 
 footer i:hover {
-  color: #50af9c;
+  color: hsl(168, 37%, 50%);
 }
 
 #error {
@@ -91,4 +94,5 @@ footer i:hover {
   display: flex;
   justify-content: center;
   margin: 10px 0;
+
 }
