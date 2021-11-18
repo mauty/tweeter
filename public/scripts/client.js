@@ -5,41 +5,7 @@
  */
 
 $(function() {
-  // Test / driver code (temporary). Eventually will get this from the server.
-
-  // const tweetData = [
-  //   {
-  //     "user": {
-  //       "name": "Newton",
-  //       "avatars": "https://i.imgur.com/73hZDYK.png"
-  //       ,
-  //       "handle": "@SirIsaac"
-  //     },
-  //     "content": {
-  //       "text": "If I have seen further it is by standing on the shoulders of giants"
-  //     },
-  //     "created_at": 1461116232227
-  //   },
-  //   {
-  //     "user": {
-  //       "name": "Descartes",
-  //       "avatars": "https://i.imgur.com/nlhLi3I.png",
-  //       "handle": "@rd" },
-  //     "content": {
-  //       "text": "Je pense , donc je suis"
-  //     },
-  //     "created_at": 1461113959088
-  //   }
-  // ];
-
-
-  const renderTweets = (tweets) => {
-    for (let tweetItem of tweets) {
-      $('#tweets-container').append(createTweetElement(tweetItem));
-    }
-  };
-
-
+  // Create HTML for new Tweet
   const createTweetElement = (data) => {
     const tweetMarkup = `
     <article class="tweet">
@@ -61,26 +27,63 @@ $(function() {
     return tweetMarkup;
   };
 
+  // Iterate to render all tweets
+  const renderTweets = (tweets) => {
+    for (let tweetItem of tweets) {
+      $('#tweets-container').prepend(createTweetElement(tweetItem));
+    }
+  };
+
+  // Get tweets from database
   const loadTweets = () => {
     $.get('/tweets', (data) => {
       renderTweets(data);
     });
   };
-   
-  loadTweets()
+  
+  // Helper escape function
+  const escape = function(str) {
+    let div = document.createElement("div");
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  };
 
-  // renderTweets(tweetData);
+  // Sets error message to be hidden initially
+  $('#error').hide();
 
-  $('#compose-tweet').submit( (event) => {
+  // Loads Initial Tweets
+  loadTweets();
+  
+  // Click handler to focus text box
+  $('#new-tweet-button').on('click', (event) => {
     event.preventDefault();
-    const text = $("#tweet-text").val();
-    if (text.length > 140) {
-      alert('tweet content too long')
+    $('#tweet-text').focus();
+  });
+
+  // Submit handler to check for errors and post tweet data
+  $('#compose-tweet').submit((event) => {
+    event.preventDefault();
+    const tweetText = $("#tweet-text").val();
+    if (tweetText.length > 140) {
+      $('#error').show();
+      $('#error-message').text("Please make your tweet shorter or our servers will explode. You've been warned.");
+      return;
     }
-    const posting = $.post( "/tweets", {text}, () => {
-      posting.then(loadTweets())
+    if (tweetText.length === 0) {
+      $('#error').show();
+      $('#error-message').text("Really? You've got nothing to say? Come on, get writing...");
+      return;
+    }
+    // Escape text before posting
+    const text = `<p>${escape(tweetText)}</p>`;
+    const posting = $.post("/tweets", {text}, () => {
+      posting.then(loadTweets());
+      // Resets text input box
       $('#tweet-text').val('');
+      $('.counter').val('140');
+      $('#error').hide();
+      return;
     });
-  })
+  });
 
 });
